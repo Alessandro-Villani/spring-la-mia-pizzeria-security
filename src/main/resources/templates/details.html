@@ -23,16 +23,16 @@
 						</ul>						
 					</div>
 					<div class="buttons row justify-content-center">
-						<form class="col-4" th:action="@{/pizzas/delete/{id} (id=*{id})}" method="post">
+						<form sec:authorize="hasAuthority('ADMIN')" class="col-4" th:action="@{/pizzas/delete/{id} (id=*{id})}" method="post">
 							<button th:href class="btn btn-danger">Elimina</button>
 						</form>
-						<a th:href="@{/pizzas/edit/{id} (id=*{id})}" class="col-4 btn btn-warning">Modifica</a>
+						<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pizzas/edit/{id} (id=*{id})}" class="col-4 btn btn-warning">Modifica</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row justify-content-center">		
-			<a th:href="@{'/pizzas/' + ${pizza.id} + '/special-offer/create'}" class="col-2 btn btn-success">Aggiungi Offerta</a>
+			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/pizzas/' + ${pizza.id} + '/special-offer/create'}" class="col-2 btn btn-success">Aggiungi Offerta</a>
 		</div>
 		<div th:unless="${pizza.specialOffers.isEmpty()}" class="d-flex flex-column align-items-center">
 			<h2 class="my-3">OFFERTE</h2>
@@ -42,7 +42,7 @@
 				<p class="mb-0 me-3">Data fine: [[ *{endDate} ]]</p>
 				<p class="mb-0 me-3">Sconto: [[ *{discountPercentage} ]]%</p>
 				<p class="mb-0 me-5">Prezzo: [[ *{getDiscountedPrice} ]]€ </p>
-				<a th:href="@{'/pizzas/' + ${pizza.id} + '/special-offer/edit/' + *{id}}" class="btn btn-warning">Modifica</a>
+				<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/pizzas/' + ${pizza.id} + '/special-offer/edit/' + *{id}}" class="btn btn-warning">Modifica</a>
 			</div>			
 		</div>
 	</main>
